@@ -1,0 +1,40 @@
+version: 2
+
+build:
+  watch:
+    exclude:
+      - node_modules
+      - .git
+      - temp
+      - exports
+      - frontend/node_modules
+      - frontend/.next
+
+services:
+  web:
+    source: .
+    build:
+      command: npm run build
+    start:
+      command: npm start
+    variables:
+      NODE_ENV: production
+      ANTHROPIC_API_KEY: ${{ANTHROPIC_API_KEY}}
+      FRONTEND_URL: ${{RAILWAY_STATIC_URL}}
+    healthcheck:
+      path: /health
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    resources:
+      cpu: 1000m
+      memory: 1Gi
+    networking:
+      public: true
+      domains:
+        - swiss-bookkeeping-agent.up.railway.app
+
+environment:
+  variables:
+    NODE_ENV: production
+    PORT: 3000
