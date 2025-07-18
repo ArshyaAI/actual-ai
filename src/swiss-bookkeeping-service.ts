@@ -4,7 +4,7 @@ import DocumentProcessor, { DocumentProcessorI, ProcessedDocument, SwissChartOfA
 import SwissAccountingIntelligence, { SwissAccountingIntelligenceI, CategorizedTransaction } from './swiss-accounting-intelligence';
 import CsvFormatter, { CsvFormatterI, SwissAccountingExport } from './csv-formatter';
 import { LlmServiceI } from './types';
-import SimpleLlmService from './simple-llm-service';
+import { SimpleLlmService } from './simple-llm-service';
 
 export interface SwissBookkeepingServiceI {
   processDocuments(chartOfAccountsPath: string, documentPaths: string[]): Promise<SwissBookkeepingResult>;

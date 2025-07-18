@@ -31,12 +31,35 @@ app.get('/health', (req, res) => {
 // API routes
 app.use('/api', apiRoutes);
 
-// Serve static files from frontend build (for production)
+// Serve simple HTML page (for production)
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend/out')));
-  
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/out/index.html'));
+  app.get('/', (req, res) => {
+    res.send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Swiss Bookkeeping Agent</title>
+        <style>
+          body { font-family: Arial, sans-serif; margin: 40px; }
+          .container { max-width: 800px; margin: 0 auto; }
+          .flag { font-size: 24px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1><span class="flag">🇨🇭</span> Swiss Bookkeeping Agent</h1>
+          <p>AI-powered Swiss accounting solution is running!</p>
+          <h2>API Endpoints:</h2>
+          <ul>
+            <li><a href="/api/health">Health Check</a></li>
+            <li><a href="/api/test-claude">Test Claude API</a></li>
+            <li><strong>POST /api/process-documents</strong> - Process documents</li>
+          </ul>
+          <p>Your Claude API key: ${process.env.ANTHROPIC_API_KEY ? 'Configured ✅' : 'Missing ❌'}</p>
+        </div>
+      </body>
+      </html>
+    `);
   });
 }
 

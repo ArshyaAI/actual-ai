@@ -35,3 +35,4 @@ export class SimpleLlmService implements LlmServiceI {
 }
 
 export default SimpleLlmService;
+export { SimpleLlmService };

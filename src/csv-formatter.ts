@@ -321,7 +321,7 @@ class CsvFormatter implements CsvFormatterI {
 
   private isVatDeductible(transaction: CategorizedTransaction): boolean {
     // Simplified logic for VAT deductibility
-    return !transaction.isIncome && Boolean(transaction.vatRate) && transaction.vatRate > 0;
+    return !transaction.isIncome && Boolean(transaction.vatRate) && (transaction.vatRate || 0) > 0;
   }
 
   private getDocumentType(transaction: CategorizedTransaction): string {
