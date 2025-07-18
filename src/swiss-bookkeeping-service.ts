@@ -4,7 +4,7 @@ import DocumentProcessor, { DocumentProcessorI, ProcessedDocument, SwissChartOfA
 import SwissAccountingIntelligence, { SwissAccountingIntelligenceI, CategorizedTransaction } from './swiss-accounting-intelligence';
 import CsvFormatter, { CsvFormatterI, SwissAccountingExport } from './csv-formatter';
 import { LlmServiceI } from './types';
-import { LlmService } from './llm-service';
+import SimpleLlmService from './simple-llm-service';
 
 export interface SwissBookkeepingServiceI {
   processDocuments(chartOfAccountsPath: string, documentPaths: string[]): Promise<SwissBookkeepingResult>;
@@ -31,7 +31,7 @@ class SwissBookkeepingService implements SwissBookkeepingServiceI {
   private readonly llmService: LlmServiceI;
 
   constructor() {
-    this.llmService = new LlmService();
+    this.llmService = new SimpleLlmService();
     this.documentProcessor = new DocumentProcessor(this.llmService);
     this.accountingIntelligence = new SwissAccountingIntelligence(this.llmService);
     this.csvFormatter = new CsvFormatter();

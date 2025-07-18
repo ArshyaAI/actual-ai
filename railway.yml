@@ -1,7 +1,7 @@
 version: 2
 
 build:
-  command: npm install && npm run build && cd frontend && npm install && npm run build
+  command: ./build.sh
 
 start:
   command: npm start
@@ -14,7 +14,7 @@ variables:
   PORT: 3000
 
 healthcheck:
-  path: /health
+  path: /api/health
   interval: 30s
   timeout: 10s
   retries: 3

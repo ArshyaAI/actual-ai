@@ -162,9 +162,7 @@ router.get('/test-claude', async (req, res) => {
     const { generateText } = await import('ai');
     const { anthropic } = await import('@ai-sdk/anthropic');
     
-    const model = anthropic('claude-3-5-sonnet-20241022', {
-      apiKey: process.env.ANTHROPIC_API_KEY,
-    });
+    const model = anthropic('claude-3-5-sonnet-20241022');
 
     const { text } = await generateText({
       model,
